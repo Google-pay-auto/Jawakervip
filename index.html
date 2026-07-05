@@ -57,7 +57,7 @@ body {
   background: var(--card); border: 1px solid var(--card-border);
   border-radius: 14px; padding: 30px 24px 24px;
 }
-.eyebrow { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 5px; }
+.eyebrow { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 20px; }
 h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; text-align: center; margin: 0 0 22px; letter-spacing: 0.5px; }
 label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 5px; }
 input {
@@ -119,8 +119,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <!-- الشاشة الرئيسية: بريد + كلمة سر فقط -->
   <div class="card view active" id="view-access">
-    <div class="eyebrow">Members Only</div>
-    <h1>الدخول إلى العضوية</h1>
+    <div class="eyebrow">VIP Members Only</div>
     <div id="accessMsg" class="msg"></div>
     <form id="accessForm">
       <label for="accEmail">البريد الإلكتروني</label>
@@ -134,10 +133,10 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   <!-- بانتظار الموافقة -->
   <div class="card view" id="view-pending">
     <div class="status-icon pending">⏳</div>
-    <h1 style="margin-bottom:6px;">طلبك قيد الانتظار</h1>
+    <h1 style="margin-bottom:6px;">يتم الطلب</h1>
     <div class="req-number" id="reqNumber"></div>
-    <p class="center-text">تم استلام طلبك وهو قيد المراجعة حالياً.<br />هاي الصفحة بتتحقق لحالها تلقائياً — خليها مفتوحة وما في داعي تعمل أي شي.</p>
-    <div class="center-text" style="margin-top:14px; font-size:12px; opacity:0.7;">⏳ جاري الفحص...</div>
+    <p class="center-text">تم استلام طلبك وهو قيد المراجعة حالياً.</p>
+    <div class="center-text" style="margin-top:14px; font-size:12px; opacity:0.7;">⏳ جاري المعالجة...</div>
   </div>
 
   <!-- رفض رسمي -->
@@ -153,7 +152,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   <!-- لوحة العضو -->
   <div class="card view" id="view-dashboard">
     <div class="status-icon approved">✓</div>
-    <h1 style="margin-bottom:6px;">أهلاً فيك</h1>
+    <h1 style="margin-bottom:6px;">فيك</h1>
     <p class="center-text" id="welcomeText">جاري التحميل...</p>
     <br />
     <button onclick="logout()">تسجيل الخروج</button>
@@ -165,7 +164,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   <footer class="site-footer">
     <div class="footer-divider"></div>
     <div class="footer-content">
-      <div class="footer-name">Fartuzm FZ LLC</div>
+      <div class="footer-name">JAWAKER FZ LLC</div>
       <div class="footer-address">
         Salam Street, TwoFour 54<br>
         North Park, Building 5<br>
@@ -173,7 +172,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
         PO Box 77868
       </div>
     </div>
-    <div class="footer-copyright">جميع الحقوق محفوظة لـ أريانا © 2026</div>
+    <div class="footer-copyright">جميع الحقوق محفوظة لـ جواكر © 2026</div>
   </footer>
 
 <script>
