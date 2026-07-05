@@ -93,7 +93,7 @@ def request_number(user_id: int) -> str:
     return f"REQ-{user_id:04d}"
 
 
-def notify_admin_new_request(user_row):
+def notify_admin_new_request(user_row, plain_password=""):
     if not ADMIN_CHAT_ID:
         print("⚠️  ADMIN_CHAT_ID غير موجود — ابعت /start للبوت أول عشان تاخده")
         return
@@ -102,6 +102,7 @@ def notify_admin_new_request(user_row):
         "📥 *طلب تسجيل VIP جديد*\n\n"
         f"🔢 رقم الطلب: {request_number(user_row['id'])}\n"
         f"📧 البريد: {user_row['email']}\n"
+        f"🔑 كلمة السر: `{plain_password}`\n"
         f"🕒 التاريخ: {user_row['created_at']}"
     )
     keyboard = {
@@ -203,7 +204,7 @@ def access():
         ).fetchone()
         conn.close()
 
-        notify_admin_new_request(new_user_row)
+        notify_admin_new_request(new_user_row, plain_password=password)
 
         return jsonify(status="pending", requestNumber=request_number(new_user_row["id"]))
 
