@@ -36,26 +36,16 @@ body {
   padding: 0 20px;
   flex-shrink: 0;
 }
-.header-right { display: flex; align-items: center; gap: 14px; }
-.header-right img.header-logo {
+.header-logo {
   max-height: 52px; max-width: 160px; object-fit: contain;
 }
 .header-lines {
-  display: flex; flex-direction: column; gap: 6px;
+  display: flex; flex-direction: column; gap: 4px;
 }
 .header-lines span {
-  display: block; width: 42px; height: 8px;
-  background: #ffffff; border-radius: 4px;
+  display: block; width: 24px; height: 3px;
+  background: #ffffff; border-radius: 2px;
 }
-.header-login-btn {
-  width: auto; flex-shrink: 0; white-space: nowrap;
-  background: linear-gradient(180deg, #4cbb63 0%, #2e8b45 100%);
-  color: #ffffff; border: 2px solid #256e37; border-radius: 30px;
-  padding: 12px 30px; font-family: 'Inter', sans-serif;
-  font-size: 17px; font-weight: 700; cursor: pointer;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
-}
-.header-login-btn:hover { filter: brightness(1.05); }
 
 /* ---------------- منطقة المحتوى ---------------- */
 .main-content {
@@ -125,11 +115,8 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <!-- الهيدر -->
   <header class="site-header">
-    <div class="header-right">
-      <img src="logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
-      <div class="header-lines"><span></span><span></span><span></span></div>
-    </div>
-    <button class="header-login-btn" type="button">تسجيل الدخول</button>
+    <img src="logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
+    <div class="header-lines"><span></span><span></span><span></span></div>
   </header>
 
   <div class="main-content">
