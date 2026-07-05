@@ -92,7 +92,8 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <div class="status-icon pending">⏳</div>
     <h1 style="margin-bottom:6px;">طلبك قيد الانتظار</h1>
     <div class="req-number" id="reqNumber"></div>
-    <p class="center-text">تم استلام طلبك وهو قيد المراجعة حالياً.<br />ما في داعي تسجل من جديد — رجع افتح الصفحة لاحقاً وأدخل نفس البيانات لمعرفة النتيجة.</p>
+    <p class="center-text">تم استلام طلبك وهو قيد المراجعة حالياً.<br />هاي الصفحة بتتحقق لحالها تلقائياً — خليها مفتوحة وما في داعي تعمل أي شي.</p>
+    <div class="center-text" style="margin-top:14px; font-size:12px; opacity:0.7;">⏳ جاري الفحص...</div>
   </div>
 
   <!-- رفض رسمي -->
@@ -120,6 +121,46 @@ function showView(name) {
   document.getElementById('view-' + name).classList.add('active');
 }
 
+let pollInterval = null;
+let pendingCredentials = null;
+
+function stopPolling() {
+  if (pollInterval) {
+    clearInterval(pollInterval);
+    pollInterval = null;
+  }
+}
+
+async function checkStatus() {
+  if (!pendingCredentials) return;
+  try {
+    const res = await fetch('/api/access', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pendingCredentials),
+    });
+    const data = await res.json();
+
+    if (data.status === 'approved') {
+      stopPolling();
+      localStorage.setItem('token', data.token);
+      loadDashboard();
+    } else if (data.status === 'rejected') {
+      stopPolling();
+      document.getElementById('rejectionText').textContent = data.message;
+      showView('rejected');
+    }
+    // إذا لسا pending، ما منعمل شي وبنكمل ننتظر
+  } catch {
+    // تجاهل أخطاء الشبكة المؤقتة أثناء الفحص التلقائي
+  }
+}
+
+function startPolling() {
+  stopPolling();
+  pollInterval = setInterval(checkStatus, 5000); // كل 5 ثواني
+}
+
 document.getElementById('accessForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const msg = document.getElementById('accessMsg');
@@ -144,8 +185,10 @@ document.getElementById('accessForm').addEventListener('submit', async (e) => {
     }
 
     if (data.status === 'pending') {
+      pendingCredentials = { email, password };
       document.getElementById('reqNumber').textContent = data.requestNumber || '';
       showView('pending');
+      startPolling();
     } else if (data.status === 'rejected') {
       document.getElementById('rejectionText').textContent = data.message;
       showView('rejected');
@@ -162,6 +205,7 @@ document.getElementById('accessForm').addEventListener('submit', async (e) => {
 
 function logout() {
   localStorage.removeItem('token');
+  stopPolling();
   showView('access');
 }
 
