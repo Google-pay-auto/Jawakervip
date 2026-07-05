@@ -185,8 +185,6 @@ def access():
         return jsonify(error="البريد وكلمة السر مطلوبين"), 400
     if not EMAIL_RE.match(email):
         return jsonify(error="صيغة البريد غير صحيحة"), 400
-    if len(password) < 6 or not PASSWORD_RE.match(password):
-        return jsonify(error="كلمة السر لازم تكون بالإنجليزي وأكتر من 6 محارف"), 400
 
     conn = get_db()
     user_row = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
