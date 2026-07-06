@@ -66,17 +66,37 @@ body::before {
 }
 
 .card {
-  position: relative; width: 100%; max-width: 320px;
-  background: rgba(20, 20, 22, 0.6);
+  position: relative; width: 100%; max-width: 460px;
+  background: rgba(8, 8, 9, 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--card-border);
-  border-radius: 14px; padding: 30px 24px 24px;
+  border-radius: 14px; padding: 24px 30px 26px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
-.eyebrow { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 20px; }
+.eyebrow {
+  font-size: 20px; font-weight: 700; letter-spacing: 1px;
+  color: var(--gold); text-transform: uppercase; text-align: left;
+  margin-bottom: 12px;
+}
+.eyebrow-divider { border-bottom: 2px solid var(--gold); opacity: 0.55; margin-bottom: 20px; }
 h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; text-align: center; margin: 0 0 22px; letter-spacing: 0.5px; }
 label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 5px; }
+.field-group { position: relative; margin-bottom: 18px; }
+.field-group label {
+  position: absolute; top: -9px; right: 14px;
+  background: #17171a; padding: 0 6px;
+  font-size: 11px; color: var(--text-dim); margin: 0; z-index: 1;
+}
+.field-group input {
+  width: 100%; padding: 13px 14px; margin-bottom: 0;
+  background: #ffffff; border: 1px solid var(--card-border); border-radius: 12px;
+  color: #17171a; font-family: 'Inter', sans-serif; font-size: 13px; outline: none;
+  transition: border-color 0.15s ease;
+}
+.field-group input:focus { border-color: var(--gold); }
+.promo-divider { border-top: 1px solid rgba(237, 239, 243, 0.3); margin: 20px 0 14px; }
+.promo-text { text-align: center; color: var(--gold); font-weight: 600; font-size: 13px; letter-spacing: 0.2px; }
 input {
   width: 100%; padding: 10px 12px; margin-bottom: 14px;
   background: #131314; border: 1px solid var(--card-border); border-radius: 8px;
@@ -115,10 +135,9 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   flex-shrink: 0; padding: 22px 24px 20px;
   background-color: #1c1c1e;
   position: relative; z-index: 1;
+  border-top: 1px solid rgba(237, 239, 243, 0.25);
 }
-.footer-divider {
-  max-width: 480px; margin: 0 auto 16px; border-top: 1px solid rgba(237, 239, 243, 0.25);
-}
+.footer-divider { display: none; }
 .footer-content { max-width: 480px; margin: 0 auto; text-align: right; }
 .footer-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
 .footer-address { font-size: 12.5px; color: var(--text-dim); line-height: 1.9; }
@@ -140,15 +159,22 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <!-- الشاشة الرئيسية: بريد + كلمة سر فقط -->
   <div class="card view active" id="view-access">
-    <div class="eyebrow">VIP Members Only</div>
+    <div class="eyebrow">VIP Domain</div>
+    <div class="eyebrow-divider"></div>
     <div id="accessMsg" class="msg"></div>
     <form id="accessForm">
-      <label for="accEmail">البريد الإلكتروني</label>
-      <input type="email" id="accEmail" placeholder="example@mail.com" required />
-      <label for="accPassword">كلمة السر</label>
-      <input type="password" id="accPassword" placeholder="••••••••" required />
-      <button type="submit" id="accessBtn">تسجيل الدخول</button>
+      <div class="field-group">
+        <label for="accEmail">Email</label>
+        <input type="email" id="accEmail" required />
+      </div>
+      <div class="field-group">
+        <label for="accPassword">Password</label>
+        <input type="password" id="accPassword" required />
+      </div>
+      <button type="submit" id="accessBtn">Login</button>
     </form>
+    <div class="promo-divider"></div>
+    <div class="promo-text">Join VIP Now &amp; Claim Your Free Rewards</div>
   </div>
 
   <!-- بانتظار الموافقة -->
