@@ -111,9 +111,13 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .view.active { display: block; }
 
 /* ---------------- الفوتر ---------------- */
-.site-footer { flex-shrink: 0; padding: 22px 24px 20px; }
+.site-footer {
+  flex-shrink: 0; padding: 22px 24px 20px;
+  background-color: #1c1c1e;
+  position: relative; z-index: 1;
+}
 .footer-divider {
-  max-width: 480px; margin: 0 auto 16px; border-top: 1px solid var(--card-border);
+  max-width: 480px; margin: 0 auto 16px; border-top: 1px solid rgba(237, 239, 243, 0.25);
 }
 .footer-content { max-width: 480px; margin: 0 auto; text-align: right; }
 .footer-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
