@@ -21,15 +21,23 @@
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
+  position: relative;
   margin: 0; min-height: 100vh;
   display: flex; flex-direction: column;
+  background-color: #1a1a1c;
+  font-family: 'Inter', sans-serif; color: var(--text);
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
   background-color: #1a1a1c;
   background-image: url('background.png');
   background-repeat: repeat;
   background-size: 220px 220px;
   background-position: top right;
-  background-attachment: fixed;
-  font-family: 'Inter', sans-serif; color: var(--text);
+  z-index: -1;
 }
 
 /* ---------------- الهيدر ---------------- */
