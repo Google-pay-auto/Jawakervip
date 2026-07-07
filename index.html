@@ -149,7 +149,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   filter: brightness(1.15);
 }
 
-/* ---------------- نافذة الواتساب المنبثقة (Modal) المطابقة تماماً للصورة ---------------- */
+/* ---------------- نافذة الواتساب المنبثقة (Modal) ---------------- */
 .whatsapp-modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -191,7 +191,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   background: #1c1c1e;
   border-radius: 12px;
   padding: 24px 16px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   border: 1px solid #2c2c2e;
 }
 .modal-instruction {
@@ -215,7 +215,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .country-select {
   background: transparent; border: none;
   color: #ffffff; font-size: 14px; outline: none;
-  cursor: pointer; max-width: 90px;
+  cursor: pointer; max-width: 95px;
 }
 .country-select option {
   background: #1c1c1e; color: #ffffff;
@@ -224,6 +224,9 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   flex: 1; background: transparent; border: none;
   color: #ffffff; font-size: 15px; padding: 10px;
   outline: none; width: 100%; margin-bottom: 0 !important;
+}
+.whatsapp-error-msg {
+  color: var(--red); font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; display: block;
 }
 .whatsapp-submit-btn {
   width: 100%; padding: 14px;
@@ -337,7 +340,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   </div>
 
-  <!-- النافذة المنبثقة المخصصة للواتساب (Popup) المطابقة تماماً للصورة -->
+  <!-- النافذة المنبثقة المخصصة للواتساب (Popup) المحدثة بالكامل -->
   <div class="whatsapp-modal-overlay" id="whatsappModalOverlay" onclick="toggleModal(false)">
     <div class="whatsapp-modal" onclick="event.stopPropagation()">
       <div class="modal-close-btn" onclick="toggleModal(false)"><i class="fas fa-times"></i></div>
@@ -347,46 +350,51 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
         <div class="modal-instruction">أدخل رقم هاتفك لربط حسابك</div>
         <div class="phone-input-container">
           <div class="country-select-wrapper">
-            <select class="country-select" id="countrySelect">
-              <!-- الدول العربية أولاً -->
-              <option value="+962">🇯🇴 +962</option>
-              <option value="+966">🇸🇦 +966</option>
-              <option value="+971">🇦🇪 +971</option>
-              <option value="+9 Egypt">🇪🇬 +20</option>
-              <option value="+963">🇸🇾 +963</option>
-              <option value="+964">🇮🇶 +964</option>
-              <option value="+9 Kuwait">🇰🇼 +965</option>
-              <option value="+9 Qatar">🇶🇦 +974</option>
-              <option value="+9 Bahrain">🇧🇭 +973</option>
-              <option value="+9 Oman">🇴🇲 +968</option>
-              <option value="+9 Lebanon">🇱🇧 +961</option>
-              <option value="+9 Palestine">🇵🇸 +970</option>
-              <option value="+9 Yemen">🇾🇪 +967</option>
-              <option value="+9 Libya">🇱🇾 +218</option>
-              <option value="+9 Tunisia">🇹🇳 +216</option>
-              <option value="+9 Algeria">🇩🇿 +213</option>
-              <option value="+9 Morocco">🇲🇦 +212</option>
-              <option value="+9 Sudan">🇸🇩 +249</option>
-              <!-- الدول الأجنبية المعروفة -->
-              <option value="+1">🇺🇸 +1</option>
-              <option value="+44">🇬🇧 +44</option>
-              <option value="+49">🇩🇪 +49</option>
-              <option value="+33">🇫🇷 +33</option>
-              <option value="+90">🇹🇷 +90</option>
-              <option value="+7">🇷🇺 +7</option>
-              <option value="+1-CA">🇨🇦 +1</option>
-              <option value="+61">🇦🇺 +61</option>
-              <option value="+39">🇮🇹 +39</option>
-              <option value="+34">🇪🇸 +34</option>
-              <option value="+46">🇸🇪 +46</option>
+            <select class="country-select" id="countrySelect" onchange="updatePhonePlaceholder()">
+              <!-- الدول العربية أولاً مع أطوال الأرقام القياسية المخزنة في الـ data-len -->
+              <option value="+962" data-len="9">🇲🇯🇴 +962</option>
+              <option value="+963" data-len="9">🇸🇾 +963</option>
+              <option value="+966" data-len="9">🇸🇦 +966</option>
+              <option value="+971" data-len="9">🇦🇪 +971</option>
+              <option value="+20" data-len="10">🇪🇬 +20</option>
+              <option value="+964" data-len="10">🇮🇶 +964</option>
+              <option value="+965" data-len="8">🇰🇼 +965</option>
+              <option value="+974" data-len="8">🇶🇦 +974</option>
+              <option value="+973" data-len="8">🇧🇭 +973</option>
+              <option value="+968" data-len="8">🇴🇲 +968</option>
+              <option value="+961" data-len="8">🇱🇧 +961</option>
+              <option value="+970" data-len="9">🇵🇸 +970</option>
+              <option value="+967" data-len="9">🇾🇪 +967</option>
+              <option value="+218" data-len="9">🇱🇾 +218</option>
+              <option value="+216" data-len="8">🇹🇳 +216</option>
+              <option value="+213" data-len="9">🇩🇿 +213</option>
+              <option value="+212" data-len="9">🇲🇦 +212</option>
+              <option value="+249" data-len="9">🇸🇩 +249</option>
+              <!-- الدول الأجنبية المعروفة والمضافة حديثاً -->
+              <option value="+1" data-len="10">🇺🇸 +1</option>
+              <option value="+44" data-len="10">🇬🇧 +44</option>
+              <option value="+49" data-len="11">🇩🇪 +49</option>
+              <option value="+33" data-len="9">🇫🇷 +33</option>
+              <option value="+90" data-len="10">🇹🇷 +90</option>
+              <option value="+7" data-len="10">🇷🇺 +7</option>
+              <option value="+1-CA" data-len="10">🇨🇦 +1</option>
+              <option value="+61" data-len="9">🇦🇺 +61</option>
+              <option value="+39" data-len="10">🇮🇹 +39</option>
+              <option value="+34" data-len="9">🇪🇸 +34</option>
+              <option value="+46" data-len="9">🇸🇪 +46</option>
+              <option value="+31" data-len="9">🇳🇱 +31</option>
+              <option value="+32" data-len="9">🇧🇪 +32</option>
+              <option value="+41" data-len="9">🇨🇭 +41</option>
+              <option value="+43" data-len="10">🇦🇹 +43</option>
             </select>
             <i class="fas fa-chevron-down" style="font-size: 11px; color: #a1a1a5;"></i>
           </div>
-          <input type="tel" class="phone-field" placeholder="00000000" id="whatsappPhone">
+          <input type="tel" class="phone-field" placeholder="9 أرقام" id="whatsappPhone">
         </div>
+        <span class="whatsapp-error-msg" id="whatsappError"></span>
       </div>
       
-      <button class="whatsapp-submit-btn">
+      <button class="whatsapp-submit-btn" onclick="validateAndSubmitWhatsapp()">
         <i class="fab fa-whatsapp"></i> أرسل رمز التحقّق عبر واتساب
       </button>
     </div>
@@ -413,10 +421,57 @@ function toggleModal(show) {
   const overlay = document.getElementById('whatsappModalOverlay');
   if (show) {
     overlay.classList.add('active');
+    updatePhonePlaceholder();
   } else {
     overlay.classList.remove('active');
+    document.getElementById('whatsappError').textContent = '';
+    document.getElementById('whatsappPhone').value = '';
   }
 }
+
+// تحديث النص المساعد داخل خانة الرقم بناء على الدولة المختارة
+function updatePhonePlaceholder() {
+  const select = document.getElementById('countrySelect');
+  const selectedOption = select.options[select.selectedIndex];
+  const length = selectedOption.getAttribute('data-len');
+  const phoneInput = document.getElementById('whatsappPhone');
+  phoneInput.placeholder = `${length} أرقام`;
+  document.getElementById('whatsappError').textContent = '';
+}
+
+// فحص دقة طول الرقم المدخل وإرساله أو إظهار خطأ
+function validateAndSubmitWhatsapp() {
+  const select = document.getElementById('countrySelect');
+  const selectedOption = select.options[select.selectedIndex];
+  const requiredLength = parseInt(selectedOption.getAttribute('data-len'));
+  const countryCode = selectedOption.value;
+  
+  const phoneInput = document.getElementById('whatsappPhone');
+  // إزالة أي فراغات أو رموز مدخلة بالخطأ والاحتفاظ بالأرقام فقط
+  const cleanPhone = phoneInput.value.replace(/\D/g, '');
+  const errorSpan = document.getElementById('whatsappError');
+
+  if (cleanPhone.length !== requiredLength) {
+    errorSpan.textContent = `يجب أن يتكون رقم الهاتف لهذه الدولة من ${requiredLength} أرقام فقط (أدخلت ${cleanPhone.length}).`;
+    return;
+  }
+  
+  errorSpan.textContent = '';
+  alert(`جاري الإرسال إلى الرقم: ${countryCode} ${cleanPhone}`);
+  // هنا يمكنك استكمال كود الـ API الخاص بك إذا كنت تريد ربطه بالسيرفر
+}
+
+// تقييد الكتابة في الحقل لتقبل الأرقام فقط وتمنع تجاوز الحد الأقصى للدولة المحددة تلقائياً
+document.getElementById('whatsappPhone').addEventListener('input', function (e) {
+  const select = document.getElementById('countrySelect');
+  const selectedOption = select.options[select.selectedIndex];
+  const maxLen = parseInt(selectedOption.getAttribute('data-len'));
+  
+  this.value = this.value.replace(/\D/g, ''); // أرقام فقط
+  if (this.value.length > maxLen) {
+    this.value = this.value.slice(0, maxLen);
+  }
+});
 
 function showView(name) {
   document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
