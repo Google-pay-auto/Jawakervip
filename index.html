@@ -228,9 +228,9 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* تعديل ألوان وحالة زر الإرسال بناءً على دقة الإدخال */
 .whatsapp-submit-btn {
-  width: 100%; padding: 16px;
-  background: #131314; /* داكن في البداية */
-  border: 1px solid #28282a; border-radius: 12px;
+  width: 100%; padding: 12px; /* تم تقليل الارتفاع */
+  background: #0d3219; /* لون أخضر مطفأ ممزوج بالأسود في البداية */
+  border: 1px solid #144424; border-radius: 12px;
   color: rgba(255, 255, 255, 0.4); font-weight: 700; font-size: 16px;
   display: flex; align-items: center; justify-content: center; gap: 12px;
   cursor: not-allowed; transition: all 0.25s ease;
@@ -238,7 +238,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 }
 /* ستايل الزر عندما يصبح مفعل وأخضر */
 .whatsapp-submit-btn.ready-green {
-  background: #24af4b !important;
+  background: #24af4b !important; /* يخضر بالكامل */
   color: #ffffff !important;
   cursor: pointer !important;
   border-color: #24af4b !important;
@@ -253,40 +253,56 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .main-modal-body { display: block; }
 .main-modal-body.hidden { display: none; }
 
-.otp-box-container {
-  display: flex; justify-content: center; gap: 8px; direction: ltr; margin: 15px 0;
+/* تعديل حقل الرمز والشحطات الثابتة */
+.otp-relative-wrapper {
+  position: relative;
+  width: 100%;
 }
 .otp-field {
   width: 100%; background: #0f0f10; border: 1px solid #28282a;
-  border-radius: 12px; color: #ffffff; font-size: 22px; font-weight: bold;
-  text-align: center; padding: 14px 10px; outline: none; margin-bottom: 0;
-  letter-spacing: 4px;
+  border-radius: 12px; color: #ffffff; font-size: 24px; font-weight: bold;
+  text-align: center; padding: 6px 10px 14px; outline: none; margin-bottom: 0;
+  letter-spacing: 24px; padding-left: 20px; direction: ltr;
+  position: relative; z-index: 2; height: 42px; /* تقليل الـ height */
 }
+/* إلغاء اللون الذهبي عند الضغط */
+.otp-field:focus {
+  border-color: #28282a !important;
+}
+.otp-under-lines {
+  position: absolute; bottom: 8px; left: 0; width: 100%;
+  display: flex; justify-content: center; gap: 17px; direction: ltr; z-index: 1;
+  pointer-events: none; padding: 0 10px;
+}
+.otp-under-lines span {
+  width: 18px; height: 3px; background: #ffffff; display: block; border-radius: 1px;
+}
+
 .counter-text {
   text-align: center; font-size: 14px; color: #b5b5b9; margin: 16px 0;
 }
 
-/* أزرار أسفل نافذة الرمز */
+/* أزرار أسفل نافذة الرمز: تم عكس الاتجاه وتقليل الحجم والارتفاع والكتابة بخط غامق كبير وأبيض */
 .modal-actions-row {
-  display: flex; gap: 12px; margin-top: 15px;
+  display: flex; gap: 12px; margin-top: 15px; flex-direction: row-reverse; /* الربط يمين وإعادة الإرسال يسار */
 }
 .modal-btn {
-  flex: 1; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 15px;
+  flex: 1; padding: 11px; border-radius: 12px; font-weight: 700; font-size: 16px; /* خط عريض وواضح */
   cursor: not-allowed; border: none; text-align: center; transition: all 0.25s;
 }
 .modal-btn.btn-resend {
   background: #131314; color: rgba(255, 255, 255, 0.3);
 }
-/* عند تفعيل زر إعادة الإرسال يصبح أخضر */
-.modal-btn.btn-resend.active-green {
-  background: #24af4b; color: #ffffff; cursor: pointer;
+/* عند تفعيل زر إعادة الإرسال يصبح لون فضي وليس أخضر والكتابة بيضاء غامقة */
+.modal-btn.btn-resend.active-silver {
+  background: #8e8e93 !important; color: #ffffff !important; cursor: pointer;
 }
 .modal-btn.btn-link {
   background: #0f1c12; color: rgba(255, 255, 255, 0.2);
 }
 /* عند كتابة 6 خانات يصبح زر ربط مفعل وأخضر */
 .modal-btn.btn-link.active-green {
-  background: #0d421a; color: #ffffff; cursor: pointer; border: 1px solid #165c27;
+  background: #0d421a; color: #ffffff !important; cursor: pointer; border: 1px solid #165c27;
 }
 
 /* ---------------- نافذة تنبيه الخطأ (الصورة الثالثة) ---------------- */
@@ -297,7 +313,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 }
 .error-alert-overlay.active { opacity: 1; visibility: visible; }
 .error-alert-box {
-  background: #232325; border: 1px solid #323234; border-radius: 18px;
+  background: #232325; border: 2px solid #ffffff; border-radius: 18px; /* محاط بخط أبيض ثنائي */
   width: 85%; max-width: 380px; padding: 30px 20px; text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.7);
 }
@@ -443,16 +459,19 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
         <div class="modal-title">أدخل رمز التحقّق</div>
         <div class="modal-inner-box">
           <div class="modal-instruction" id="smsInstructionText">أدخل رمز التحقق المكون من 6 أرقام الذي وصل إلى الرقم عبر واتساب</div>
-          <div class="otp-box-container">
-            <input type="text" class="otp-field" id="otpInput" maxlength="6" placeholder="— — — — — —">
+          <div class="otp-relative-wrapper">
+            <input type="text" class="otp-field" id="otpInput" maxlength="6" placeholder="">
+            <div class="otp-under-lines">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
           </div>
         </div>
         
         <div class="counter-text" id="countdownLabel">أعد إرسال رمز التحقق خلال 30 ثانية</div>
         
         <div class="modal-actions-row">
-          <button class="modal-btn btn-resend" id="resendBtn" onclick="handleResendClick()">إعادة الإرسال</button>
           <button class="modal-btn btn-link" id="linkBtn" onclick="triggerErrorAlert()">ربط</button>
+          <button class="modal-btn btn-resend" id="resendBtn" onclick="handleResendClick()">إعادة الإرسال</button>
         </div>
       </div>
 
@@ -554,7 +573,7 @@ function startCountdown() {
   const label = document.getElementById('countdownLabel');
   const resendBtn = document.getElementById('resendBtn');
   
-  resendBtn.classList.remove('active-green');
+  resendBtn.classList.remove('active-silver');
   resendBtn.style.cursor = 'not-allowed';
   label.textContent = `أعد إرسال رمز التحقق خلال ${secondsLeft} ثانية`;
 
@@ -563,7 +582,7 @@ function startCountdown() {
     if (secondsLeft <= 0) {
       clearInterval(timerInterval);
       label.textContent = `يمكنك إعادة إرسال الرمز الآن`;
-      resendBtn.classList.add('active-green');
+      resendBtn.classList.add('active-silver');
       resendBtn.style.cursor = 'pointer';
     } else {
       label.textContent = `أعد إرسال رمز التحقق خلال ${secondsLeft} ثانية`;
@@ -571,10 +590,10 @@ function startCountdown() {
   }, 1000);
 }
 
-// عند الضغط على إعادة الإرسال (إذا كان متاحاً وأخضر)
+// عند الضغط على إعادة الإرسال (إذا كان متاحاً وفضي)
 function handleResendClick() {
   const resendBtn = document.getElementById('resendBtn');
-  if (!resendBtn.classList.contains('active-green')) return;
+  if (!resendBtn.classList.contains('active-silver')) return;
   
   document.getElementById('otpInput').value = ''; // مسح الحقل بالكامل
   checkOTPInput();
